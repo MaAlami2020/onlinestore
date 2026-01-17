@@ -3,11 +3,11 @@ name: kubernetes-deploy
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - main
+      - mastter
 
 jobs:
   deploy:
