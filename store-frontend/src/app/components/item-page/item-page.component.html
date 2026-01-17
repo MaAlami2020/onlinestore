@@ -1,0 +1,70 @@
+<header>
+    <nav class="navbar">
+        <nav class="nav-menu --nav-dark" id="mySidenav">
+            <button class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark" (click)="home()">Avenue Fashion</button>
+            <ul class="nav-menu-ul"></ul>
+        </nav>
+    </nav>
+</header>
+
+<div *ngIf="item">
+    <!-- Banner -->
+    <div class="banner banner-second">
+        <div class="banner-container">
+            <h1>Item information</h1>
+            <div class="columns" id="item">
+                <div class="column"><p class="has-text-white"><strong class="has-text-grey-light">Code: </strong>{{item.code}}
+                </p><p class="has-text-white"><strong class="has-text-grey-light">Name: </strong>{{item.name}}
+                </p><p class="has-text-white"><strong class="has-text-grey-light">Price: </strong>{{item.price}} €
+                </p><p class="has-text-white"><strong class="has-text-grey-light">Gender: </strong>{{item.gender}}
+                </p><p class="has-text-white"><strong class="has-text-grey-light">Type: </strong>{{item.type}}
+                </p><p class="has-text-white"><strong class="has-text-grey-light">Description: </strong>{{item.description}}</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!--purchase process-->
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <img [src]="itemImage()" alt="camiseta" width="440" height="440"/>
+            </div>
+            <div class="column">
+                <h3 class="is-size-4">Size and Quantity selection:</h3>
+                <div class="columns is-multiline">
+                    <div class="column is-one-half">
+                        <label for="size">Size</label>
+                        <div *ngFor="let stock of itemStocks" class="form-control-field" id="size">
+                            <label *ngIf="stock.stock<=5">
+                                <input type="radio" name="size" [value]="stock.size.label" [(ngModel)]="itemToBuy.size" required/>{{stock.size.label}} (only {{stock.stock}} articles avaialables!)
+                            </label>
+                            <label *ngIf="stock.stock>5">
+                                <input type="radio" name="size" [value]="stock.size.label" [(ngModel)]="itemToBuy.size" required/>{{stock.size.label}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="column is-one-half">
+                        <label for="quality">Quantity:</label>
+                        <input type="number" name="count" [(ngModel)]="itemToBuy.count" placeholder="amount to buy" class="form-control-field" min="1" required/>
+                    </div>
+                </div>
+                <div class="columns is-multiline">
+                    <div class="column is-full is-marginless">
+                        <button class="btn btn-default btn-outline" (click)="buy()">Buy</button>
+                    </div>
+                    {{status}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-bar-top">
+            <div class="container">
+                <a class="footer-bar-top-links" href="#">2024 Avenue Fashion</a>
+            </div>
+        </div>
+    </footer>

@@ -1,0 +1,107 @@
+<div *ngIf="item">
+    <header>
+        <nav class="navbar">
+            <nav class="nav-menu --nav-dark" id="mySidenav">
+                <a class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-white" (click)="home()">Avenue Fashion</a>
+                <ul class="nav-menu-ul">
+                    <li class="nav-menu-item"><a [routerLink]="['/inventory/items/' + item.id]" class="has-text-weight-bold has-text-white">confirm</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <!-- Banner -->
+    <div class="banner banner-second">
+        <div class="banner-container ">
+
+            <h1>Item updated</h1>
+            <div class="columns" id="itemUpdated">
+                <div class="column">
+                    <p class="has-text-white"><strong class="has-text-grey-light">Code: </strong>{{item.code}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Name: </strong>{{item.name}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Price: </strong>{{item.price}} €</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Gender: </strong>{{item.gender}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Type: </strong>{{item.type}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Description: </strong>{{item.description}}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-two-fifths-desktop">
+                <div>
+                    <img [src]="itemImage()" alt="camiseta" width="200" height="200">
+                </div>
+
+                <div class="columns is-multiline">
+                    <div class="column is-one-third" id="size">
+                        <label for="quality">Size:</label>
+                        <input type="text" [(ngModel)]="size.label" placeholder="size" class="form-control-field">
+                    </div>
+                    <div class="column is-one-third" id="stock">
+                        <label for="quality">Stock:</label>
+                        <input type="number" [(ngModel)]="clothes.stock" placeholder="enter stock" class="form-control-field">
+                    </div>
+                </div>
+
+
+                <div class="columns is-multiline">
+                    <div class="column is-full is-marginless">
+                        <button (click)="addNewStock()" class="btn btn-default btn-outline">add</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h2 class="is-size-3">clothes</h2>
+
+                <div class="columns is-multiline">
+                    <div class="slider" id="slider">
+
+                        <div *ngFor="let stock of stocks; let i = index" class="slider-img-container" [class.active]="i === currentIndex" [class.is-hidden]="i !== currentIndex" style="text-align: center">
+                            <div class="column is-half-mobile is-two-third-desktop">
+                                <div class="card">
+                                    <div class="card-simple-options">
+                                        <button (click)="deleteStock(stock)" class="btn btn--mini-rounded">
+                                            <div class="columns is-multiline">
+                                                <div class="column is-full is-marginless">DELETE</div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <p class="has-text-dark"><strong class="has-text-dark">Code:</strong> {{stock.code}}</p>
+                                    <p class="has-text-dark"><strong class="has-text-dark">Size:</strong> {{stock.size.label}}</p>
+                                    <p class="has-text-dark"><strong class="has-text-dark">Stock:</strong> {{stock.stock}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-left" *ngIf="item.stocks && item.stocks.length > 0">
+                            <div class="slider-button-left slider-buttons" (click)="previousItem()">
+                                <i class="zmdi zmdi-chevron-left zmdi-hc-3x"></i>
+                            </div>
+                        </div>
+                        <div class="button-right" *ngIf="item.stocks && item.stocks.length > 0">
+                            <div class="slider-button-right slider-buttons" (click)="nextItem()">
+                                <i class="zmdi zmdi-chevron-right zmdi-hc-3x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-bar-top">
+            <div class="container">
+                <a class="footer-bar-top-links" href="#">2024 Avenue Fashion</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/main.js" defer></script>

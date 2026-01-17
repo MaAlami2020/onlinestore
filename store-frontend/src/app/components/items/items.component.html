@@ -1,0 +1,168 @@
+    <!-- Barra de navegación -->
+    <header>
+        <nav class="navbar-top">
+            <ul class="navbar-top-ul">
+                <li class="navbar-top-item">
+                    <!--<a href="login.html" class="navbar-top-links">Registro</a>-->
+                </li>
+                <li class="navbar-top-item">
+                    <!--<a href="login.html" class="navbar-top-links">Iniciar sesión</a>-->
+                </li>
+            </ul>
+        </nav>
+        <nav class="navbar">
+            <nav class="nav-menu" id="mySidenav">
+                <button class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark" (click)="home()">Avenue Fashion</button>
+                <ul class="nav-menu-ul">
+                    <li #admin *ngIf="userService.isLogged() && userService.isAdmin()">
+                        <img [src]="adminImage()" alt="" width="50" height="50"/>
+                    </li>
+                    <li #admin *ngIf="userService.isLogged() && userService.isAdmin()">
+                        <button (click)="clothesPage()" class="nav-menu-link">New Clothes</button> <!--DONE-->
+                    </li>
+                    <li #admin *ngIf="userService.isLogged() && userService.isAdmin()">
+                        <button (click)="shoesPage()" class="nav-menu-link">New Shoes</button> <!--DONE-->
+                    </li>
+                </ul>
+                <form>
+                    <div>
+                        <span class="form-group-icon"><i class="zmdi zmdi-search"></i></span>
+                        <input name="name" [(ngModel)]="name" placeholder="Search..."/>                       
+                        <button (click)="searchItem()">Search</button>
+                        
+                    </div>
+                </form>
+                <!--items listing-->     
+            </nav>
+        </nav>
+    </header>
+
+    <!-- Sección de fotografías -->
+    <div class="container">
+
+        <div *ngIf="itemsFounded" class="columns is-mobile is-multiline" id="itemFoundedListing">
+            <!--item searching-->
+            <div class="topbar-filter fw">
+                <p id="total-item-founded">Found <span>{{capacityFounded}} items </span></p>
+            </div>
+            <!--items listing founded-->
+            <div *ngFor="let item of itemsFounded" class="column is-half-mobile is-one-quarter-desktop">
+                <!--items info founded-->
+                
+                    <div class="card">
+                        <span class="price">{{item.price}}</span>
+                        <img [src]="itemImage(item.id)" alt="" width="200" height="200"/>
+                        <div class="card-simple-options">
+                            <a [routerLink]="['/inventory/items/' + item.id]" class="btn btn--mini-rounded"> <!--DONE-->
+                                <div class="columns is-multiline">
+                                    <div class="column is-full is-marginless">EDIT</div>
+                                </div>
+                            </a>
+                            <button (click)="(deleteItem(item.id))" class="btn btn--mini-rounded">
+                                <div class="columns is-multiline">
+                                    <div class="column is-full is-marginless">DELETE</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="card-info">
+                            <h4 class="has-text-black has-text-centered has-text-weight-bold">{{item.name}}</h4>
+                            <div class="has-text-centered">{{item.description}}
+                                <h4 class="has-text-black has-text-centered has-text-weight-bold">{{item.price}} €</h4>
+                            </div>
+                            <div class="card-buttons">
+                                <div *ngIf="this.userService.isLogged()">
+                                    <div *ngIf="this.userService.isUser()">
+                                        <a href="#" class="btn btn--mini-rounded">
+                                            <i class="zmdi zmdi-favorite-outline"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="page-single">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-12 col-xs-12">
+                            <ul class="items-founded-pagination">               
+                                <li><button (click)="moreItemsFounded()" class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark">more results</button></li>
+                            </ul>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="items" class="columns is-mobile is-multiline" id="itemListing">
+            <div class="topbar-filter fw">
+                <p id="total-item"><span>{{capacity}} items</span> in total</p>
+            </div>
+            <!--items listing-->
+            <div *ngFor="let item of items" class="column is-half-mobile is-one-quarter-desktop" id="itemListing">
+                <!--items info-->
+                
+                    <div class="card">
+                        <span class="price">{{item.price}}</span>
+                        <img [src]="itemImage(item.id)" alt="" width="200" height="200"/>
+                        <div class="card-simple-options">
+                            <a [routerLink]="['/inventory/items/' + item.id]" class="btn btn--mini-rounded">
+                                <div class="columns is-multiline">
+                                    <div class="column is-full is-marginless">EDIT</div>
+                                </div>
+                            </a>
+                            <button (click)="(deleteItem(item.id))" class="btn btn--mini-rounded">
+                                <div class="columns is-multiline">
+                                    <div class="column is-full is-marginless">DELETE</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="card-info">
+                            <h4 class="has-text-black has-text-centered has-text-weight-bold">{{item.name}}</h4>
+                            <div class="has-text-centered">{{item.description}}
+                                <h4 class="has-text-black has-text-centered has-text-weight-bold">{{item.price}} €</h4>
+                            </div>
+                            <div class="card-buttons">
+                                <div *ngIf="this.userService.isLogged()">
+                                    <div *ngIf="this.userService.isUser()">
+                                        <a href="#" class="btn btn--mini-rounded">
+                                            <i class="zmdi zmdi-favorite-outline"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                <!--<button id="item-' + item.id +'"></button>-->
+            </div>
+            <div class="page-single">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-12 col-xs-12">
+                            <ul class="pagination">               
+                                <li><button (click)="moreItems()" class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark">more results</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<!--pagination-->
+    
+<!--spinner-->    
+    <div id="spinner-div" class="pt-5">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
+
+    <div id="plotlyChart" width="400" height="150"></div>
+
+    <footer class="footer">     
+        <div class="footer-bar-top">
+            <li class="footer-bar-top-links">2024 Avenue Fashion</li>
+        </div>
+    </footer>

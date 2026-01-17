@@ -1,0 +1,3 @@
+[submodule "Store-frontend"]
+	path = Store-frontend
+	url = https://github.com/MaAlami2020/Store-frontend.git

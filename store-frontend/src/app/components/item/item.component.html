@@ -1,0 +1,113 @@
+ <div *ngIf="item">
+    <header>
+        <nav class="navbar">
+            <nav class="nav-menu --nav-dark" id="mySidenav">
+                <button class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark" (click)="home()">Avenue Fashion</button>
+                <ul class="nav-menu-ul">
+                    <li class="nav-menu-item has-text-light">
+                        <a [routerLink]="['/inventory/items/' + item.id + '/' + category + '/stock']" class="nav-menu-link">Edit {{category}}</a> <!--DONE-->
+                    </li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <!-- Banner -->
+    <div class="banner banner-second">
+        <div class="banner-container">
+            <h1>Current item</h1>
+            <div class="columns">
+                <div class="column">
+                    <img [src]="itemImage(item.id)" alt="" width="200" height="200"/>
+                </div>
+                <div class="column" id="item">
+                    <p class="has-text-white"><strong class="has-text-grey-light">Code: </strong>{{item.code}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Name: </strong>{{item.name}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Price: </strong>{{item.price}} €</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Gender: </strong>{{item.gender}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Type: </strong>{{item.type}}</p>
+                    <p class="has-text-white"><strong class="has-text-grey-light">Description: </strong>{{item.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-two-fifths-desktop">
+                <img src="https://pub-f65070d681344ae4af3e8b15f47129a8.r2.dev/no_image.png" alt="camiseta" class="active slider-item"/>
+                <input #file type='file' name='itemImage' accept=".jpg, .jpeg, .png"/>
+                <div class="columns is-multiline">
+                    <div class="column is-full is-marginless">
+                        <button (click)="updateImage()" class="btn btn-default btn-outline">update image</button>
+                    </div>
+                </div>
+            </div>  
+            <div class="column">
+                <h3 class="is-size-4">New item</h3>
+                <div class="columns">
+                    <div class="column">
+                        <input type="text" [(ngModel)]="itemUpdated.name" placeholder="name" class="form-control-field"/>
+                    </div>
+                    <div class="column">
+                        <input type="number" [(ngModel)]="itemUpdated.price" placeholder="price" class="form-control-field" min="0" step="0.01"/>
+                    </div>
+                </div>
+
+                <div class="columns is-multiline">
+                    <!--<div class="column is-one-third">
+                        <label for="quality">Code:</label>
+                        <input type="text" [(ngModel)]="itemUpdated.code" placeholder="item new code" class="form-control-field" minlength="3">         
+                    </div>-->
+                    <div class="column is-one-third">
+                        <label for="color">Gender:</label>
+                        <div *ngFor="let genre of genresArray" class="form-control-field" id="gender">
+                            <label><input type="radio" name="gender" [value]="genre" [(ngModel)]="itemUpdated.gender"/>{{genre}}</label>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label for="size">Type:</label>  
+                        <div *ngFor="let type of types" class="form-control-field" id="type">
+                            <label><input type="radio" name="type" [value]="type" [(ngModel)]="itemUpdated.type"/>{{type}}</label>
+                            <!--aplicar factory method para crear instancias segun el tipo de producto-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns is-multiline">
+                    <div class="column is-full is-marginless">
+                        <button (click)="update()" class="btn btn-default btn-outline">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns is-tablet">
+            <div class="column">
+                <div class="tabs-container">                
+                    <div class="tabs-panels">
+                        <div class="tab-panel active-panel">
+                            <div class="container">
+                                <div class="columns">
+                                    <div class="column">
+                                        <h2 class="is-size-4">Additional information</h2>
+                                        <textarea [(ngModel)]="itemUpdated.description" placeholder="description" class="form-control-field"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-bar-top">
+            <div class="container">
+                <a class="footer-bar-top-links" href="#">2024 Avenue Fashion</a>
+            </div>
+        </div>
+    </footer>

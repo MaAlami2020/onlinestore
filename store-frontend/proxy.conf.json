@@ -1,0 +1,20 @@
+{
+  "/new/store/api/**": {
+    "target": "http://localhost:8442",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/inventory/api/**": {
+    "target": "http://localhost:8442",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/order/api/**": {
+    "target": "http://localhost:8442",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

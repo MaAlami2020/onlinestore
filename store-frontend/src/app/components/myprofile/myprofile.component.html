@@ -1,0 +1,83 @@
+    <header>
+        <nav class="navbar">
+            <nav class="nav-menu" id="mySidenav">
+                <button class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark" (click)="home()">Avenue Fashion</button>
+                <ul class="nav-menu-ul"></ul>
+            </nav>
+        </nav>
+    </header>
+    <!-- Banner -->
+    <div class="banner banner-second">
+        <div class="banner-container ">
+            <ul *ngIf="this.userService.isLogged()">
+                <div class="user-img">
+                    <img [src]="userImage(currentUser()?.id)" alt="" width="200" height="200"/>
+                </div>
+            </ul>
+            <ul *ngIf="!this.userService.isLogged()">
+                <div class="user-img">
+                    <img [src]="adminImage()" alt="" width="200" height="200"/>
+                </div>
+            </ul>
+            <div class="columns">
+                <div class="column">
+                    <p class="has-text-grey-light"><strong class="has-text-grey-light">Username: </strong></p>
+                    <p class="has-text-grey-light"><strong class="has-text-grey-light">Name: </strong></p>
+                    <p class="has-text-grey-light"><strong class="has-text-grey-light">Email: </strong></p> 
+                    <p class="has-text-grey-light"><strong class="has-text-grey-light">Street: </strong></p>
+                    <p class="has-text-grey-light"><strong class="has-text-grey-light">Number: </strong></p>
+                    <p class="has-text-grey-light"><strong class="has-text-grey-light">Zip code: </strong></p>
+                    <p class="has-text-grey-light"><strong class="has-text-grey-light">City: </strong></p>
+                </div>
+                <div class="column" id="userData">
+                    <p>{{currentUser()?.username}}</p>
+                    <p>{{currentUser()?.name}}</p>
+                    <p>{{currentUser()?.email}}</p>
+                    <p>{{currentUser()?.direction.street}}</p>
+                    <p>{{currentUser()?.direction.number}}</p>
+                    <p>{{currentUser()?.direction.zipCode}}</p>
+                    <p>{{currentUser()?.direction.city}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <h2 class="is-size-4">Profile</h2>
+
+                    <input type="text" [(ngModel)]="user.name" placeholder="Name" class="form-control-field"/>
+                    <input type="email" [(ngModel)]="user.email" placeholder="Email" class="form-control-field"/>
+                    <!--div class="user-img">
+                        <input #file type='file' name='imageField' accept=".jpg, .jpeg"/>
+                    </div--> 
+                    <h2 class="is-size-4">Address</h2>
+                    <div class="columns">
+                        <div class="column">
+                            <input type="text" [(ngModel)]="user.street" placeholder="Street" class="form-control-field"/>
+                            <input type="number" [(ngModel)]="user.number" placeholder="Number" class="form-control-field"/>
+                        </div>
+                        <div class="column">
+                            <input type="number" [(ngModel)]="user.zipCode" placeholder="00000" class="form-control-field" minlength="5" maxlength="5"/>
+                            <input type="text" [(ngModel)]="user.city" placeholder="City" class="form-control-field"/>
+                        </div>
+                    </div>
+                    <button (click)="update()" type="submit" class="btn btn-default btn-primary">Update account</button>
+                    <p></p>
+                    <!--p>{{state}}</p-->
+            </div>
+        </div>
+    </div>
+
+    <div id="spinner-div" class="pt-5">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-bar-top">
+            <li class="footer-bar-top-links">2024 Avenue Fashion</li>
+        </div>
+    </footer>

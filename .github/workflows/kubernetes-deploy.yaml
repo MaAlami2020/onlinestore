@@ -1,0 +1,87 @@
+name: kubernetes-deploy
+#update
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
+
+jobs:
+  deploy:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and deploy image
+        run: |
+          IMAGE=maalami/springbootgateway:latest
+          docker build -t $IMAGE -f k8s-gateway/Dockerfile .
+          docker push $IMAGE
+
+#name: kubernetes-deploy
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#
+#      - name: Authenticate to Google Cloud
+#        uses: google-github-actions/auth@v2
+#        with:
+#          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+#
+#      - name: Setup gcloud CLI
+#        uses: google-github-actions/setup-gcloud@v2
+#        with:
+#          project_id: ${{ secrets.GOOGLE_PROJECT }}
+#          install_components: 'gke-gcloud-auth-plugin'
+#
+#      - name: Configure Docker for Artifact Registry
+#        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+#
+#      - name: Build and push Docker image
+#        env:
+#          GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+#        run: |
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/nginx:latest -f k8s/Dockerfile .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/nginx:latest
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootgateway -f k8s/Dockerfile .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootgateway
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootstore -f k8s/Dockerfile .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootstore
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootinventory -f k8s/Dockerfile .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootinventory
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootorder -f k8s/Dockerfile .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootorder
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootredis -f k8s/Dockerfile .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/springbootredis
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/mysql:8.0 -f k8s/Dockerfile .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/onlinestore/maalami/mysql:8.0
+#
+#      - name: Deploy to GKE
+#        env:
+#          GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+#        run: |
+#          gcloud container clusters get-credentials onlinestore-cluster --region us-central1 --project $GOOGLE_PROJECT
+#          for file in k8s/*-deployment.yaml; do
+#            sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" $file
+#            kubectl apply -f $file
+#          done

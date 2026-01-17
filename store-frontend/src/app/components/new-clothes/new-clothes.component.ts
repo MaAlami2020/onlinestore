@@ -1,0 +1,73 @@
+import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Item } from '../../models/Item.model';
+import { ItemService } from '../../services/item.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-new-clothes',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  templateUrl: './new-clothes.component.html'
+})
+export class NewClothesComponent {
+
+  factory: Map<string, string> = new Map<string, string>;
+  types: string[] = [];
+  genres: Set<string> = new Set<string>;
+  genresArray: string[] = [];
+  newItem: Item | undefined;
+  item = {
+    name: '',
+    description: '',
+    price: 0,
+    gender: '',
+    type: ''
+  }
+
+  @ViewChild('file')
+  file: any
+
+  constructor(private router: Router, public itemService: ItemService){
+    this.factory.set("jeans", "clothes");
+    this.factory.set("camisa", "clothes");
+    this.factory.set("camiseta", "clothes");
+    this.factory.set("zapato", "shoes");
+    this.types = Array.from(this.factory.keys());
+
+    this.genres.add("man");
+    this.genres.add("woman");
+    this.genres.add("unisex");
+    this.genresArray = Array.from(this.genres);
+  }
+
+  create(){
+    this.itemService.addItem(this.item).subscribe(
+      (item: any) => {
+        this.newItem = item,
+        this.addImage(),
+        this.router.navigate(['/inventory/items/' + this.newItem?.id + '/clothes/stock'])
+      },
+      (error: any) => console.log(error)
+    );
+  }
+
+  addImage(){
+    const image = this.file.nativeElement.files[0];
+    if(image && this.newItem != undefined){
+      let formData = new FormData();
+      formData.append("itemImage", image);
+      this.itemService.addImage(this.newItem, formData).subscribe(
+        (_:any) => alert("image successfully added"),
+        (_:any) => alert("error adding item image")
+      );
+    }else{
+      alert("create an item first")
+    }
+  }
+
+  home(){
+    this.router.navigate(['/inventory/items']);
+  }
+}

@@ -1,0 +1,83 @@
+    <!-- Barra de navegación -->
+    <header>
+        <nav class="navbar-top">
+            <ul class="navbar-top-ul">
+                <li class="navbar-top-orders">
+                    <!--<a href="login.html" class="navbar-top-links">Registro</a>-->
+                </li>
+                <li class="navbar-top-orders">
+                    <!--<a href="login.html" class="navbar-top-links">Iniciar sesión</a>-->
+                </li>
+            </ul>
+        </nav>
+        <nav class="navbar">
+            <nav class="nav-menu --nav-dark" id="mySidenav">
+                <button class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark" (click)="home()">Avenue Fashion</button>
+                <ul class="nav-menu-ul">
+                    <div class="user-img">
+                        <img [src]="userImage(currentUser()?.id)" alt="" width="50" height="50"/>
+                    </div>
+                </ul>
+                <!--orderss listing-->     
+            </nav>
+        </nav>
+    </header>
+    <div class="banner banner-second">
+        <div class="banner-container ">
+        </div>
+    </div>
+
+    <!-- Sección de fotografías -->
+    <div class="container">
+
+        <div class="topbar-filter fw">
+			<p id="total-order">
+                <span>{{size}} orders</span> in total
+            </p>
+		</div>
+        <!--orderss listing-->
+        <div class="columns is-mobile is-multiline" id="orderListing">
+            <!--orderss info-->
+            <div *ngFor="let order of orders" class="column is-half-mobile is-one-quarter-desktop">
+                <div class="card">
+                    <img src="https://pub-f65070d681344ae4af3e8b15f47129a8.r2.dev/no_image.png" alt="" width="200" height="200"/>
+                    <div class="card-simple-options">
+                        <a [routerLink]="['/order/orders/' + order.id + '/detail']" class="btn btn--mini-rounded"> 
+                            <div class="columns is-multiline">
+                                <div class="column is-full is-marginless">VIEW ORDER</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-info"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-single">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                        <ul class="pagination">               
+                            <li><button (click)="loadMore()" class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark">more results</button></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+<!--pagination-->
+    
+<!--spinner-->    
+    <div id="spinner-div" class="pt-5">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
+
+    <!--<div id="plotlyChart" width="400" height="150"></div>-->
+
+    <footer class="footer">     
+        <div class="footer-bar-top">
+            <li class="footer-bar-top-links">2024 Avenue Fashion</li>
+        </div>
+    </footer>

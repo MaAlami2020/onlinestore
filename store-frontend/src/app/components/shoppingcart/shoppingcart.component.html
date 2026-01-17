@@ -1,0 +1,124 @@
+<!-- Barra de navegación -->
+    <header>
+        <nav class="navbar">
+            <nav class="nav-menu --nav-dark" id="mySidenav">
+                <button class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark" (click)="home()">Avenue Fashion</button>
+                <ul class="nav-menu-ul"></ul>
+            </nav>
+        </nav>
+        <nav class="navbar">
+            <header class="nabvar-mobile is-size-5-mobile">
+                <a class="navbar-mobile-link has-text-white" href="#" id="btn-mobile"><i class="zmdi zmdi-menu"></i></a>
+            </header>
+        </nav>
+    </header>
+    <!-- Banner -->
+    <div class="banner banner-second">
+        <div class="banner-container ">
+            <h1>Shopping cart</h1>
+            <h2 class="zmdi zmdi-shopping-cart"></h2> 
+            <div *ngIf="!itemsToBuy || itemsToBuy.length == 0">
+                <div class="has-text-light"></div>
+                <h1 class="nav-menu-link has-text-weight-bold has-text-grey-light">CART EMPTY !!!</h1>
+            </div>
+            <div *ngIf="itemsToBuy && itemsToBuy.length > 0">
+                <div class="has-text-light" id="cart">
+                    <h1 class="has-text-weight-bold has-text-grey-light">{{totalCost}} €</h1>
+                </div>
+                <button (click)="generateOrder()">
+                    <h1 class="nav-menu-link has-text-weight-bold has-text-grey-light">Generate order</h1>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="columns">
+            <div class="slider" id="slider">
+
+                <div *ngIf="firstItem" class="slider-img-container active" style="align: center">
+                    <div class="column">
+                        <div class="card">
+                            <img [src]="itemImage(firstItem.items[0].id)" alt="camiseta" width="200" height="200">
+                            <div class="card-simple-options">
+                                <button (click)="removeItemFromCart(firstItem.id)" class="btn btn--mini-rounded">
+                                    <div class="columns is-multiline">
+                                        <div class="column is-full is-marginless">REMOVE</div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="is-size-4">{{firstItem.items[0].name}}</h3>
+                    <h2 class="price is-size-4">{{(firstItem.count)*firstItem.items[0].price}} €<sup></sup></h2>
+                    <div class="column">
+                        <div *ngIf="firstItem.items[0].stocks[0]">
+                            <div *ngIf="firstItem.items[0].stocks[0].stock>0 && firstItem.items[0].stocks[0].stock<=5">
+                                <p class="has-text-grey"><strong>Availability: </strong>less than 5 articles avaialables</p>
+                            </div>
+                            <div *ngIf="firstItem.items[0].stocks[0].stock>5">
+                                <p class="has-text-grey"><strong>Availability: </strong>In stock</p>
+                            </div>
+                        </div>
+                        <p class="has-text-grey"><strong>Gender: </strong>{{firstItem.items[0].gender}}</p>
+                        <p class="has-text-grey"><strong>Size: </strong>{{firstItem.size}}</p>
+                        <p class="has-text-grey"><strong>Type: </strong>{{firstItem.items[0].type}}</p>
+                        <p class="has-text-grey"><strong>Amount: </strong>{{firstItem.count}}</p>
+                        <p class="has-text-grey"><strong>price per unit: </strong>{{firstItem.items[0].price}} €</p>
+                    </div>
+                    <p class="text-default">{{firstItem.items[0].description}}</p>
+                </div>
+
+                <div *ngFor="let itemToBuy of otherItems" class="slider-img-container">
+                    <div class="column">
+                        <div class="card">
+                            <img [src]="itemImage(itemToBuy.items[0].id)" alt="camiseta" width="200" height="200">
+                            <div class="card-simple-options">
+                                <button (click)="removeItemFromCart(itemToBuy.id)" class="btn btn--mini-rounded">
+                                    <div class="columns is-multiline">
+                                        <div class="column is-full is-marginless">REMOVE</div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="is-size-4">{{itemToBuy.items[0].name}}</h3>
+                    <h2 class="price is-size-4">{{(itemToBuy.count)*itemToBuy.items[0].price}} €<sup></sup></h2>
+                    <div class="column">
+                        <div *ngIf="itemToBuy.items[0].stocks[0]">
+                            <div *ngIf="itemToBuy.items[0].stocks[0].stock>0 && itemToBuy.items[0].stocks[0].stock<=5">
+                                <p class="has-text-grey"><strong>Availability: </strong>less than 5 articles avaialables</p>
+                            </div>
+                            <div *ngIf="itemToBuy.items[0].stocks[0].stock>5">
+                                <p class="has-text-grey"><strong>Availability: </strong>In stock</p>
+                            </div>
+                        </div>
+                        <p class="has-text-grey"><strong>Gender: </strong>{{itemToBuy.items[0].gender}}</p>
+                        <p class="has-text-grey"><strong>Size: </strong>{{itemToBuy.size}}</p>
+                        <p class="has-text-grey"><strong>Type: </strong>{{itemToBuy.items[0].type}}</p>
+                        <p class="has-text-grey"><strong>Amount: </strong>{{itemToBuy.count}}</p>
+                        <p class="has-text-grey"><strong>price per unit: </strong>{{itemToBuy.items[0].price}} €</p>
+                    </div>
+                    <p class="text-default">{{itemToBuy.items[0].description}}</p>
+                </div>
+                
+                <div class="button-left" *ngIf="itemsToBuy && itemsToBuy.length > 0">
+                    <div class="slider-button-left slider-buttons" onclick="previous()"><i class="zmdi zmdi-chevron-left zmdi-hc-3x"></i></div>    
+                </div>
+                <div class="button-right" *ngIf="itemsToBuy && itemsToBuy.length > 0">
+                    <div class="slider-button-right slider-buttons" onclick="next()"><i class="zmdi zmdi-chevron-right zmdi-hc-3x"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-bar-top">
+            <div class="container">
+                <a class="footer-bar-top-links">2024 Avenue Fashion</a>
+            </div>
+        </div>
+    </footer>

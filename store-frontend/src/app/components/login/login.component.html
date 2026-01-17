@@ -1,0 +1,40 @@
+    <header>
+        <nav class="navbar">
+            <nav class="nav-menu --nav-dark-light" id="mySidenav">
+                <button class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-dark" (click)="home()">Avenue Fashion</button>
+                <ul class="nav-menu-ul"></ul>
+            </nav>
+        </nav>
+    </header>
+    <!-- Banner -->
+    <div class="banner banner-second">
+        <div class="banner-container">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <h2 class="is-size-4">Login</h2>
+                <input #user name="username" placeholder="Username" class="form-control-field error"/>
+
+                <input #pass type="password" name="password" placeholder="Password" class="form-control-field"/>
+                <div class="title-hd-sm">
+                    <button class="btn btn-default btn-primary" (click)="signin($event, user.value, pass.value)" type="submit" value="Log in">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="spinner-div" class="pt-5">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-bar-top">
+            <li class="footer-bar-top-links">2024 Avenue Fashion</li>
+        </div>
+    </footer>
+

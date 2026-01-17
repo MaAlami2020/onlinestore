@@ -1,0 +1,94 @@
+    <header>
+        <nav class="navbar">
+            <nav class="nav-menu --nav-dark" id="mySidenav">
+                <a class="is-hidden-mobile brand is-uppercase has-text-weight-bold has-text-white" (click)="home()">Avenue Fashion</a>
+                <ul class="nav-menu-ul"></ul>
+            </nav>
+        </nav>
+    </header>
+    <!-- Banner -->
+    <div class="banner banner-second">
+        <div class="banner-container">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-two-fifths-desktop">
+                <div class="slider" id="slider">
+                    <div>
+                        <img src="https://pub-f65070d681344ae4af3e8b15f47129a8.r2.dev/no_image.png"  alt="camiseta" width="400" height="400">
+                        <input #file type='file' name='itemImage' accept=".jpg, .jpeg, .png" required/>
+                        <div class="columns is-multiline">
+                            <div class="column is-full is-marginless">
+                                <button (click)="addImage()" class="btn btn-default btn-outline">add image</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="column">
+                <h3 class="is-size-3">New item</h3>
+                <div class="columns">
+                    <div class="column">
+                        <input type="text" [(ngModel)]="item.name" placeholder="name" class="form-control-field" required/>
+                    </div>
+                    <div class="column">
+                        <input type="number" [(ngModel)]="item.price" placeholder="price" class="form-control-field" min="0" step="0.01" required/>
+                    </div>
+                </div>
+
+                <div class="columns is-multiline">
+                    <div class="column is-one-third">
+                        <label for="color">Gender:</label>
+                        <div *ngFor="let genre of genresArray" class="form-control-field" id="gender">
+                            <label><input type="radio" name="gender" [value]="genre" [(ngModel)]="item.gender"/>{{genre}}</label>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label for="size">Type:</label>
+                        <div *ngFor="let type of types" class="form-control-field" id="type">
+                            <label><input type="radio" name="type" [value]="type" [(ngModel)]="item.type"/>{{type}}</label>
+                        </div>
+                    </div>
+                </div>  
+                
+                <div class="columns is-multiline">
+                    <div class="column is-full is-marginless">
+                        <button (click)="create()" class="btn btn-default btn-outline">add stock</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns is-tablet">
+            <div class="column">
+                <div class="tabs-container">                
+                    <div class="tabs-panels">
+                        <div class="tab-panel active-panel">
+                            <div class="container">
+                                <div class="columns">
+                                    <div class="column">
+                                        <h2 class="is-size-4">Additional information</h2>
+                                        <textarea [(ngModel)]="item.description" placeholder="description" class="form-control-field"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-bar-top">
+            <div class="container">
+                <a class="footer-bar-top-links" href="#">2024 Avenue Fashion</a>
+            </div>
+        </div>
+    </footer>
