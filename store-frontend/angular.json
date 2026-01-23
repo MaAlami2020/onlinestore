@@ -30,6 +30,9 @@
             ],
             "scripts": [
               "src/assets/js/main.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "sockjs-client"
             ]
           },
           "configurations": {

@@ -6,6 +6,7 @@ COPY store-frontend/src/*.ts ./
 RUN npm install
 COPY store-frontend/ ./
 RUN chmod +x node_modules/.bin/ng
+#ng build --configuration production --base-href="/spa/"  
 RUN npx ng build --configuration production --base-href=/spa/
 RUN ls -la /app/dist/store-frontend
 
@@ -16,6 +17,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY store-gateway/src ./src
 # Copiar frontend compilado al src/main/resources/static/new antes del package
+#cp dist/store-frontend/* ../store-gateway/src/main/resources/static/spa  
 COPY --from=build /app/dist/store-frontend /store-gateway/src/main/resources/static/spa
 RUN mvn clean package -DskipTests
 

@@ -63,10 +63,9 @@ export class ClothesStockComponent {
         
         this.itemService.addSizeAndStockToItem(this.item, clothes.id ,clothes.size.id).subscribe(
           (item:any) => {
-            this.item = item,
+            //this.item = item,
             console.log(this.item),
-            window.location.reload()
-            //this.router.navigate(['/inventory/items/' + this.id])
+            this.router.navigate(['/inventory/items/' + this.id])
           },
           (error:any) => console.log(error) 
         )

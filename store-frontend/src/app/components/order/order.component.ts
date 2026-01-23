@@ -7,6 +7,7 @@ import { ItemService } from '../../services/item.service';
 import { map, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-order',
   standalone: true,
@@ -26,6 +27,20 @@ export class OrderComponent {
 
   constructor(private router: Router, public itemService: ItemService, public orderService: OrderService, private activatedRoute: ActivatedRoute){}
 
+  currentIndex = 0;
+
+  previousItem() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
+  }
+
+  nextItem() {
+    if (this.currentIndex < this.itemsToBuy!.length - 1) {
+      this.currentIndex++;
+    }
+  }
+
   ngOnInit(){
     this.id = this.activatedRoute.snapshot.params['id'];
     this.orderService.getOrder(this.id).subscribe(
@@ -41,7 +56,8 @@ export class OrderComponent {
         this.items = items,
         console.log(this.items),
         this.itemToBuy = items[0],
-        this.itemsToBuy = items.slice(1),
+        //this.itemsToBuy = items.slice(1),
+        this.itemsToBuy = items
         this.size = items.length
       },
       error => console.log(error)

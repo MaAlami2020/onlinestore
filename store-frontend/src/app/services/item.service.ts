@@ -9,7 +9,7 @@ import { Stock } from "../models/Stock.model";
 import { ItemDTO } from "../models/ItemDTO";
 import { StockDTO } from "../models/StockDTO";
 
-const ITEM_URL = '/new/store/api/items';
+const ITEM_URL = '/store/api/items';
 const ITEM_INV = '/inventory/api/inventory';
 
 @Injectable({ providedIn: 'root'})
@@ -130,7 +130,7 @@ export class ItemService{
     }
 
     addItemToCart(username: string, id: number, itemToBuy: ItemToBuy){
-        return this.https.post('/new/store/api/add/cart/users/' + username + '/items/' + id, itemToBuy).pipe(
+        return this.https.post('/store/api/add/cart/users/' + username + '/items/' + id, itemToBuy).pipe(
             catchError((error) => {
                 return this.handleError(error);
             })

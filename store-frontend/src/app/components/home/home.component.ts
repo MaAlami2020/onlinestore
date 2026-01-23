@@ -76,11 +76,11 @@ export class HomeComponent{
     }
 
     userImage(id: number | undefined){
-        return '/new/store/api/users/' + id + '/image';
+        return '/store/api/users/' + id + '/image';
     }
 
     adminImage(){
-        return '/new/store/api/users/6/image';
+        return '/store/api/users/6/image';
     }
 
     searchItem(){
@@ -135,6 +135,6 @@ export class HomeComponent{
     }
 
     getItemImage(id: number | undefined){
-        return '/new/store/api/items/' + id + '/image';
+        return '/store/api/items/' + id + '/image';
     }
 }

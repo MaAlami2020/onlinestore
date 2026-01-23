@@ -42,7 +42,7 @@ export class ItemsComponent {
     this.itemService.deleteItem(id).subscribe(
       (_:any) => {
         alert("item successfully deleted"),
-        window.location.reload();
+        this.router.navigate(['/home']);
       },
       (error: any) => console.log(error)
     );

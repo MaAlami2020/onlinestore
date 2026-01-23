@@ -36,7 +36,7 @@
         <div class="columns">
             <div class="slider" id="slider">
 
-                <div *ngIf="itemToBuy" class="slider-img-container active" style="align: center">
+                <!--div *ngIf="itemToBuy" class="slider-img-container active" style="align: center">
                     <div class="column">
                         <div class="card">
                             <img [src]="itemImage(itemToBuy.items[0].id)" alt="camiseta" width="200" height="200"/>
@@ -59,10 +59,10 @@
                         <p class="has-text-grey"><strong>Amount: </strong>{{itemToBuy.count}}</p>
                     </div>
                     <p class="text-default">{{itemToBuy.items[0].description}}</p>
-                </div>
+                </div-->
 
 
-                <div *ngFor="let itemToBuy of itemsToBuy" class="slider-img-container">
+                <div *ngFor="let itemToBuy of itemsToBuy; let i = index" class="slider-img-container" [class.active]="i === currentIndex" [class.is-hidden]="i !== currentIndex" style="text-align: center">
                     <div class="column">
                         <div class="card">
                             <img [src]="itemImage(itemToBuy.items[0].id)" alt="camiseta" width="200" height="200"/>
@@ -85,14 +85,12 @@
                         <p class="has-text-grey"><strong>Amount: </strong>{{itemToBuy.count}}</p>
                     </div>
                     <p class="text-default">{{itemToBuy.items[0].description}}</p>
-                </div>
-
-                
-                <div class="button-left" *ngIf="items && items.length > 0">   
-                    <div class="slider-button-left slider-buttons" onclick="previous()"><i class="zmdi zmdi-chevron-left zmdi-hc-3x"></i></div> 
-                </div>
-                <div class="button-right" *ngIf="items && items.length > 0">
-                    <div class="slider-button-right slider-buttons" onclick="next()"><i class="zmdi zmdi-chevron-right zmdi-hc-3x"></i></div>
+                    <div class="button-left" *ngIf="itemsToBuy && itemsToBuy.length > 0">   
+                        <div class="slider-button-left slider-buttons" (click)="previousItem()"><i class="zmdi zmdi-chevron-left zmdi-hc-3x"></i></div> 
+                    </div>
+                    <div class="button-right" *ngIf="itemsToBuy && itemsToBuy.length > 0">
+                        <div class="slider-button-right slider-buttons" (click)="nextItem()"><i class="zmdi zmdi-chevron-right zmdi-hc-3x"></i></div>
+                    </div>
                 </div>
             </div>
         </div>

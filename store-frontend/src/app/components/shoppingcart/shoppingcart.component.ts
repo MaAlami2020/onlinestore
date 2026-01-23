@@ -26,6 +26,20 @@ export class ShoppingcartComponent {
 
   constructor(private router: Router, public itemService: ItemService, public orderService: OrderService, public shoppingcartService: ShoppingCartService, public userService: UserService){}
 
+  currentIndex = 0;
+
+  previousItem() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
+  }
+
+  nextItem() {
+    if (this.currentIndex < this.otherItems!.length - 1) {
+      this.currentIndex++;
+    }
+  }
+
   ngOnInit(){
     const user = this.userService.getCurrentUser();
     if (!user) return;
@@ -36,7 +50,8 @@ export class ShoppingcartComponent {
         this.itemsToBuy = cart.items, 
         this.size = cart.items.length;
         this.firstItem = cart.items[0],
-        this.otherItems = cart.items.slice(1)
+        //this.otherItems = cart.items.slice(1)
+        this.otherItems = cart.items;
         console.log(this.otherItems);
       },
       error => console.log(error)

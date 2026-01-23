@@ -36,7 +36,7 @@ export class OrderService{
     }
 
     getOrder(id: number): Observable<any>{
-        return this.https.get(ORDER_URL + '/' + id).pipe(
+        return this.https.get(ORDER_SERV + '/' + id + '/info').pipe(
             catchError((error) => {
                 return this.handleError(error)
             })

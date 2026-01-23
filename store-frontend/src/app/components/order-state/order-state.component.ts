@@ -40,6 +40,20 @@ export class OrderStateComponent {
     }
   }
 
+  currentIndex = 0;
+
+  previousItem() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
+  }
+
+  nextItem() {
+    if (this.currentIndex < this.itemsToBuy!.length - 1) {
+      this.currentIndex++;
+    }
+  }
+
   ngOnInit(){
     this.id = this.activatedRoute.snapshot.params['id'];
     this.orderService.getOrder(this.id).subscribe(
@@ -55,13 +69,16 @@ export class OrderStateComponent {
         
         this.itemToBuy = items[0],
         console.log(this.itemToBuy),
-        this.itemsToBuy = items.slice(1),
+        //this.itemsToBuy = items.slice(1),
+        this.itemsToBuy = items,
         this.items = items,
         this.size = items.length
       },
       error => console.log(error)
     );
   }
+
+  
 
   adminIndex(){
     this.router.navigate(['order/orders/admin']);

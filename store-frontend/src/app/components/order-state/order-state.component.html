@@ -19,7 +19,7 @@
             <div class="columns">
                 <div class="slider" id="slider">
 
-                    <div *ngIf="itemToBuy" class="slider-img-container active" style="min-height: 55vh; min-width: 90vh; display: flex; justify-content: center; align-items: center;">
+                    <!--div *ngIf="itemToBuy" class="slider-img-container active" style="min-height: 55vh; min-width: 90vh; display: flex; justify-content: center; align-items: center;">
                         <div class="card">
                             <div class="columns">
                                 <div class="column is-two-fifths-desktop">
@@ -44,9 +44,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div-->
 
-                    <div *ngFor="let itemToBuy of itemsToBuy" class="slider-img-container" style="min-height: 55vh; min-width: 90vh; display: flex; justify-content: center; align-items: center;">' +
+                    <div *ngFor="let itemToBuy of itemsToBuy; let i = index" class="slider-img-container" [class.active]="i === currentIndex" [class.is-hidden]="i !== currentIndex" style="min-height: 55vh; min-width: 85vh; display: flex; justify-content: center; align-items: center;">' +
                         <div class="card">
                             <div class="columns">
                                 <div class="column is-two-fifths-desktop">
@@ -71,16 +71,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="button-left" *ngIf="items && items.length > 0"> 
-                        <div class="slider-button-left slider-buttons" onclick="previous()">
-                            <i class="zmdi zmdi-chevron-left zmdi-hc-3x"></i>
-                        </div>   
-                    </div>
-                    <div class="button-right" *ngIf="items && items.length > 0">
-                        <div class="slider-button-right slider-buttons" onclick="next()">
-                            <i class="zmdi zmdi-chevron-right zmdi-hc-3x"></i>
+                        <div class="button-left" *ngIf="itemsToBuy && itemsToBuy.length > 0"> 
+                            <div class="slider-button-left slider-buttons" (click)="previousItem()">
+                                <i class="zmdi zmdi-chevron-left zmdi-hc-3x"></i>
+                            </div>   
+                        </div>
+                        <div class="button-right" *ngIf="itemsToBuy && itemsToBuy.length > 0">
+                            <div class="slider-button-right slider-buttons" (click)="nextItem()">
+                                <i class="zmdi zmdi-chevron-right zmdi-hc-3x"></i>
+                            </div>
                         </div>
                     </div>
 
@@ -100,6 +99,7 @@
                         <p class="has-text-dark"><strong class="has-text-grey-light">Total cost: </strong>{{order.totalCost}} €</p>
                         <p class="has-text-dark"><strong class="has-text-grey-light">Creation date: </strong>{{order.creationDate}}</p>
                         <p class="has-text-dark"><strong class="has-text-grey-light">State: </strong>{{order.state}}</p>
+                        
                     </div>
                 </div>
             </div>
