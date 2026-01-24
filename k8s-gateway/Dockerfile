@@ -21,6 +21,7 @@ COPY store-gateway/src ./src
 RUN ls -la src/main/resources/static/spa
 #RUN ls -la ../store-gateway/src/main/resources/static/spa
 COPY --from=build /app/dist/store-frontend src/main/resources/static/spa
+RUN ls -la src/main/resources/static/spa
 RUN mvn clean package -DskipTests
 
 # CONTAINER FINAL
