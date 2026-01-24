@@ -18,7 +18,9 @@ RUN mvn dependency:go-offline
 COPY store-gateway/src ./src
 # Copiar frontend compilado al src/main/resources/static/new antes del package
 #cp dist/store-frontend/* ../store-gateway/src/main/resources/static/spa  
-COPY --from=build /app/dist/store-frontend/* /store-gateway/src/main/resources/static/spa
+RUN ls -la /store-gateway/src/main/resources/static/spa
+RUN ls -la ../store-gateway/src/main/resources/static/spa
+COPY --from=build /app/dist/store-frontend /store-gateway/src/main/resources/static/spa
 RUN mvn clean package -DskipTests
 
 # CONTAINER FINAL
