@@ -17,5 +17,19 @@ public class FallbackController {
                 .body("Service of order temporarily unavailable");
     }
 
+    @GetMapping("/store")
+    public ResponseEntity<String> storeFallback() {
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body("Service of store temporarily unavailable");
+    }
+
+    @GetMapping("/inventory")
+    public ResponseEntity<String> inventoryFallback() {
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body("Service of inventory temporarily unavailable");
+    }
+
     
 }
