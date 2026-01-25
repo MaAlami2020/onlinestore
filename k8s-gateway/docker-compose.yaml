@@ -11,8 +11,8 @@ services:
       dockerfile: Dockerfile
     image: maalami/springbootgateway:latest
     ports:
-    #  - 8442:8442
-      - 443:443
+      - 8442:8442
+    #  - 443:443
     #environment:
     #  - SPRING_DATASOURCE_USERNAME=root
     #  - SPRING_DATASOURCE_PASSWORD=Mundialmente1
