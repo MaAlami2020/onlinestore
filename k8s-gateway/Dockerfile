@@ -13,20 +13,21 @@ RUN ls -la /app/dist/store-frontend
 # BACKEND
 FROM maven:3.9.6-eclipse-temurin-21 AS backend-builder
 WORKDIR /project
-COPY pom.xml .
+COPY pom.xml /project/
 RUN mvn dependency:go-offline
-COPY store-gateway/src ./src
+COPY store-gateway/src /project/src
 # Copiar frontend compilado al src/main/resources/static/new antes del package
 #cp dist/store-frontend/* ../store-gateway/src/main/resources/static/spa  
-RUN ls -la src/main/resources/static/spa
+RUN ls -la /project/src/main/resources/static/spa
 #RUN ls -la ../store-gateway/src/main/resources/static/spa
-COPY --from=build /app/dist/store-frontend src/main/resources/static/spa
-RUN ls -la src/main/resources/static/spa
+COPY --from=build /app/dist/store-frontend /project/src/main/resources/static/spa
+RUN ls -la /project/src/main/resources/static/spa
 RUN mvn clean package -DskipTests
 
 # CONTAINER FINAL
 FROM eclipse-temurin:21-jdk
 WORKDIR /usr/src/app
-COPY --from=backend-builder /project/target/*.jar ./appGateway.jar
+COPY --from=backend-builder /project/target/*.jar /usr/src/app/
+#./appGateway.jar
 EXPOSE 443
 ENTRYPOINT ["java", "-jar", "appGateway.jar"]
