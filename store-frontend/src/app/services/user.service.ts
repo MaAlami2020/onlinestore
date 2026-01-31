@@ -26,6 +26,7 @@ export class UserService{
         this.https.get<User>(USER_URL + '/current', {withCredentials: true}).subscribe(
             response => {
                 this.user = response as User;
+                console.log("Current user:", this.user);
                 this.logged = true;
             },
             error => {
