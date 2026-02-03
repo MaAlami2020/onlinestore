@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     image: maalami/springbootgateway:latest
     ports:
-      - 443:443
+      - 8442:8442
     restart: always
     depends_on:
       - db
