@@ -27,5 +27,5 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jdk
 WORKDIR /usr/src/app
 COPY --from=backend-builder /project/target/*.jar ./appGateway.jar
-EXPOSE 443
+EXPOSE 8442
 ENTRYPOINT ["java", "-jar", "appGateway.jar"]
